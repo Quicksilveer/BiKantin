@@ -1,6 +1,12 @@
 {{--
-    KERANGKA HALAMAN SETELAH LOGIN (dipakai lewat <x-layout>)
-    Isi: header (nama aplikasi, nama user, tombol Logout), pesan sukses/error, lalu isi halaman.
+    KERANGKA HALAMAN SETELAH LOGIN
+    Dipakai di halaman lain dengan:
+        <x-layout title="Judul Tab">
+            ...isi halaman...
+        </x-layout>
+
+    Isinya: header (nama aplikasi, nama user, tombol Logout), pesan sukses/error, lalu isi halaman.
+    Gaya tampilannya ada di public/css/style.css.
 --}}
 @props(['title' => null])
 
@@ -10,38 +16,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? config('app.name') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body>
 
     {{-- Header --}}
-    @auth
-        <header class="border-b border-gray-300 bg-white">
-            <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-2">
-                <a href="{{ auth()->user()->dashboardRoute() }}" class="font-bold">{{ config('app.name') }}</a>
+    <div class="header">
+        <div class="header-isi">
+            <a class="header-judul" href="{{ auth()->user()->dashboardRoute() }}">{{ config('app.name') }}</a>
 
-                <form method="POST" action="{{ route('logout') }}" class="text-sm">
-                    @csrf
-                    {{ auth()->user()->siswa?->nama ?? auth()->user()->username }} ({{ auth()->user()->role }})
-                    <button type="submit" class="ml-2 border border-gray-400 px-2 py-0.5 hover:bg-gray-100">Logout</button>
-                </form>
-            </div>
-        </header>
-    @endauth
+            <form class="header-user" method="POST" action="{{ route('logout') }}">
+                @csrf
+                {{ auth()->user()->siswa?->nama ?? auth()->user()->username }} ({{ auth()->user()->role }})
+                <button class="tombol-garis" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
 
-    <main class="mx-auto max-w-5xl px-4 py-6">
+    <div class="isi">
         {{-- Pesan sukses / error --}}
         @if (session('success'))
-            <x-alert type="success">{{ session('success') }}</x-alert>
+            <div class="pesan pesan-sukses">{{ session('success') }}</div>
         @endif
 
         @if (session('error'))
-            <x-alert type="error">{{ session('error') }}</x-alert>
+            <div class="pesan pesan-error">{{ session('error') }}</div>
         @endif
 
         {{-- Isi halaman --}}
         {{ $slot }}
-    </main>
+    </div>
 
 </body>
 </html>
