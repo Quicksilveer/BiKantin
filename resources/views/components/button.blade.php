@@ -1,21 +1,10 @@
 {{--
     TOMBOL
-    Cara pakai:
-        <x-button>Simpan</x-button>                     tombol utama (oranye)
-        <x-button variant="outline">Batal</x-button>    tombol bergaris tepi
-        <x-button type="button">Klik</x-button>         tombol yang tidak mengirim form
-
-    Warna tombol utama diatur di resources/css/app.css (--color-primary).
+    <x-button>Simpan</x-button>
+    <x-button variant="outline">Batal</x-button>
 --}}
 @props(['variant' => 'primary', 'type' => 'submit'])
 
-@php
-    $gaya = match ($variant) {
-        'outline' => 'border border-line-strong bg-surface text-ink hover:bg-page',
-        default => 'bg-primary text-white hover:bg-primary-hover',
-    };
-@endphp
-
-<button type="{{ $type }}" {{ $attributes->merge(['class' => "rounded-control px-4 py-2 font-medium transition-colors {$gaya}"]) }}>
+<button type="{{ $type }}" {{ $attributes->merge(['class' => 'px-4 py-2 '.($variant === 'outline' ? 'border border-gray-400 bg-white hover:bg-gray-100' : 'bg-blue-600 text-white hover:bg-blue-700')]) }}>
     {{ $slot }}
 </button>

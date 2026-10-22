@@ -14,7 +14,7 @@ class AuthTest extends TestCase
     {
         $this->get(route('login'))
             ->assertOk()
-            ->assertSee('Masuk ke BI Kantin');
+            ->assertSee('Login BI Kantin');
     }
 
     public function test_admin_logs_in_to_admin_dashboard(): void

@@ -1,10 +1,10 @@
 {{-- DASHBOARD SISWA  (alamat: /siswa) --}}
 <x-layout title="Dashboard Siswa - {{ config('app.name') }}">
     <x-card>
-        <h1 class="text-2xl font-semibold">Halo, {{ $siswa?->nama ?? auth()->user()->username }}!</h1>
+        <h1 class="text-lg font-bold">Dashboard Siswa</h1>
+        <p>Halo, {{ $siswa?->nama ?? auth()->user()->username }}.</p>
         @if ($siswa)
-            <p class="mt-1 text-muted">{{ $siswa->kelas }} &middot; NIS {{ $siswa->nis }}</p>
+            <p class="text-sm text-gray-600">Kelas {{ $siswa->kelas }} &middot; NIS {{ $siswa->nis }}</p>
         @endif
-        <p class="mt-1 text-muted">Kamu masuk sebagai <strong>siswa</strong>.</p>
     </x-card>
 </x-layout>
