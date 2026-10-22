@@ -1,37 +1,41 @@
-<x-layout title="Masuk - BI Kantin">
+{{--
+    HALAMAN LOGIN  (alamat: /login)
+
+    Bagian-bagian halaman:
+      1. JUDUL : logo, judul, dan kalimat sambutan
+      2. FORM  : kolom username, password, dan tombol Masuk
+
+    Komponen yang dipakai (ada di folder resources/views/components):
+      <x-layout>  kerangka halaman     -> components/layout.blade.php
+      <x-card>    kotak putih          -> components/card.blade.php
+      <x-logo>    logo                 -> components/logo.blade.php
+      <x-input>   kolom isian + label  -> components/input.blade.php
+      <x-button>  tombol               -> components/button.blade.php
+
+    Warna diatur di resources/css/app.css.
+--}}
+<x-layout title="Masuk - {{ config('app.name') }}">
     <div class="flex min-h-[80vh] items-center justify-center">
-        <div class="w-full max-w-sm rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+        <x-card class="w-full max-w-sm shadow-sm">
+
+            {{-- ===== 1. JUDUL ===== --}}
             <div class="mb-6 flex flex-col items-center gap-2 text-center">
-                <span class="flex size-12 items-center justify-center rounded-xl bg-amber-500 text-lg font-bold text-white">BI</span>
-                <h1 class="text-xl font-semibold">Masuk ke BI Kantin</h1>
-                <p class="text-sm text-stone-500">Pesan makanan kantin tanpa antre.</p>
+                <x-logo size="lg" />
+                <h1 class="text-xl font-semibold">Masuk ke {{ config('app.name') }}</h1>
+                <p class="text-sm text-muted">Pesan makanan kantin tanpa antre.</p>
             </div>
 
+            {{-- ===== 2. FORM ===== --}}
             <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-4">
                 @csrf
 
-                <div class="flex flex-col gap-1">
-                    <label for="username" class="text-sm font-medium">Username</label>
-                    <input id="username" name="username" type="text" value="{{ old('username') }}" required autofocus autocomplete="username"
-                        class="rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 focus:outline-none">
-                    @error('username')
-                        <p class="text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
+                <x-input name="username" label="Username" required autofocus autocomplete="username" />
 
-                <div class="flex flex-col gap-1">
-                    <label for="password" class="text-sm font-medium">Password</label>
-                    <input id="password" name="password" type="password" required autocomplete="current-password"
-                        class="rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 focus:outline-none">
-                    @error('password')
-                        <p class="text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
+                <x-input name="password" label="Password" type="password" required autocomplete="current-password" />
 
-                <button type="submit" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white hover:bg-amber-600">
-                    Masuk
-                </button>
+                <x-button>Masuk</x-button>
             </form>
-        </div>
+
+        </x-card>
     </div>
 </x-layout>
