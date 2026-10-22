@@ -67,13 +67,16 @@
     </style>
 </head>
 <body>
+    @php
+        $namaSiswa = $siswa?->nama ?? auth()->user()->username;
+    @endphp
 
     <div class="header">
         <span class="header-judul">BI Kantin</span>
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            {{ $siswa?->nama ?? auth()->user()->username }} (siswa)
+            {{ $namaSiswa }} (siswa)
             <button class="tombol-logout" type="submit">Logout</button>
         </form>
     </div>
@@ -81,7 +84,7 @@
     <div class="isi">
         <div class="kotak">
             <h1>Dashboard Siswa</h1>
-            <p>Halo, {{ $siswa?->nama ?? auth()->user()->username }}.</p>
+            <p>Halo, {{ $namaSiswa }}.</p>
             @if ($siswa)
                 <p class="keterangan">Kelas {{ $siswa->kelas }} &middot; NIS {{ $siswa->nis }}</p>
             @endif
