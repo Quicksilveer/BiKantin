@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function dashboardRoute(): string
+    {
+        return $this->isAdmin() ? route('admin.dashboard') : route('siswa.dashboard');
+    }
 }
