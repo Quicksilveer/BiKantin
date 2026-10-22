@@ -77,15 +77,15 @@
 
             <label for="username">Username</label>
             <input class="kolom-input" id="username" name="username" type="text" value="{{ old('username') }}" required autofocus>
-            @error('username')
-                <p class="error">{{ $message }}</p>
-            @enderror
+            @if ($errors->has('username'))
+                <p class="error">{{ $errors->first('username') }}</p>
+            @endif
 
             <label for="password">Password</label>
             <input class="kolom-input" id="password" name="password" type="password" required>
-            @error('password')
-                <p class="error">{{ $message }}</p>
-            @enderror
+            @if ($errors->has('password'))
+                <p class="error">{{ $errors->first('password') }}</p>
+            @endif
 
             <button class="tombol" type="submit">Login</button>
         </form>
