@@ -6,10 +6,10 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-#[Fillable(['username', 'password', 'role'])]
+#[Fillable(['username', 'password', 'role', 'nis'])]
 #[Hidden(['password'])]
 class User extends Authenticatable
 {
@@ -45,11 +45,13 @@ class User extends Authenticatable
     }
 
     /**
-     * @return HasMany<Pesanan, $this>
+     * The student record of a siswa account (null for admins).
+     *
+     * @return BelongsTo<Siswa, $this>
      */
-    public function pesanan(): HasMany
+    public function siswa(): BelongsTo
     {
-        return $this->hasMany(Pesanan::class, 'user_id');
+        return $this->belongsTo(Siswa::class, 'nis');
     }
 
     public function isAdmin(): bool

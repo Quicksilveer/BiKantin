@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,6 +22,7 @@ class UserFactory extends Factory
             'username' => fake()->unique()->userName(),
             'password' => '123',
             'role' => 'siswa',
+            'nis' => Siswa::factory(),
         ];
     }
 
@@ -31,6 +33,7 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'role' => 'admin',
+            'nis' => null,
         ]);
     }
 }
