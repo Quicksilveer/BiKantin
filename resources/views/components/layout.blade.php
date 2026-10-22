@@ -34,7 +34,7 @@
             <header class="border-b border-line bg-surface">
                 <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
                     <a href="{{ auth()->user()->dashboardRoute() }}" class="flex items-center gap-2 font-semibold">
-                        <x-logo />
+                        <span class="flex size-8 shrink-0 items-center justify-center rounded-control bg-primary text-sm font-bold text-white">BI</span>
                         <span>{{ config('app.name') }}</span>
                     </a>
 
